@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as GeneralRouteRouteImport } from './routes/_general/route'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
-import { Route as ApiSplatRouteImport } from './routes/api/$'
 import { Route as ApiChatRouteRouteImport } from './routes/api/chat/route'
 import { Route as ApiProxyImageRouteImport } from './routes/api/proxy-image'
 import { Route as ApiUploadthingRouteImport } from './routes/api/uploadthing'
@@ -73,11 +72,6 @@ const GeneralRouteRoute = GeneralRouteRouteImport.update({
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiSplatRoute = ApiSplatRouteImport.update({
-  id: '/api/$',
-  path: '/api/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRouteRoute = ApiChatRouteRouteImport.update({
@@ -308,7 +302,6 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRouteRoute
   '/dashboard/albums': typeof DashboardAlbumsRouteRouteWithChildren
   '/dashboard/images': typeof DashboardImagesRouteRouteWithChildren
-  '/api/$': typeof ApiSplatRoute
   '/api/proxy-image': typeof ApiProxyImageRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
   '/article/$slug': typeof ArticleSlugRoute
@@ -352,7 +345,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRouteRoute
-  '/api/$': typeof ApiSplatRoute
   '/api/proxy-image': typeof ApiProxyImageRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
   '/article/$slug': typeof ArticleSlugRoute
@@ -401,7 +393,6 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRouteRoute
   '/dashboard/albums': typeof DashboardAlbumsRouteRouteWithChildren
   '/dashboard/images': typeof DashboardImagesRouteRouteWithChildren
-  '/api/$': typeof ApiSplatRoute
   '/api/proxy-image': typeof ApiProxyImageRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
   '/article/$slug': typeof ArticleSlugRoute
@@ -450,7 +441,6 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/dashboard/albums'
     | '/dashboard/images'
-    | '/api/$'
     | '/api/proxy-image'
     | '/api/uploadthing'
     | '/article/$slug'
@@ -494,7 +484,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/api/chat'
-    | '/api/$'
     | '/api/proxy-image'
     | '/api/uploadthing'
     | '/article/$slug'
@@ -542,7 +531,6 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/dashboard/albums'
     | '/dashboard/images'
-    | '/api/$'
     | '/api/proxy-image'
     | '/api/uploadthing'
     | '/article/$slug'
@@ -590,7 +578,6 @@ export interface RootRouteChildren {
   GeneralRouteRoute: typeof GeneralRouteRouteWithChildren
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   ApiChatRouteRoute: typeof ApiChatRouteRoute
-  ApiSplatRoute: typeof ApiSplatRoute
   ApiProxyImageRoute: typeof ApiProxyImageRoute
   ApiUploadthingRoute: typeof ApiUploadthingRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
@@ -632,13 +619,6 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/$': {
-      id: '/api/$'
-      path: '/api/$'
-      fullPath: '/api/$'
-      preLoaderRoute: typeof ApiSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -1062,7 +1042,6 @@ const rootRouteChildren: RootRouteChildren = {
   GeneralRouteRoute: GeneralRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   ApiChatRouteRoute: ApiChatRouteRoute,
-  ApiSplatRoute: ApiSplatRoute,
   ApiProxyImageRoute: ApiProxyImageRoute,
   ApiUploadthingRoute: ApiUploadthingRoute,
   ArticleSlugRoute: ArticleSlugRoute,
