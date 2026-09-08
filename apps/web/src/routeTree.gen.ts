@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SplatRouteImport } from './routes/$'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as GeneralRouteRouteImport } from './routes/_general/route'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
@@ -17,7 +18,6 @@ import { Route as ApiSplatRouteImport } from './routes/api/$'
 import { Route as ApiChatRouteRouteImport } from './routes/api/chat/route'
 import { Route as ApiProxyImageRouteImport } from './routes/api/proxy-image'
 import { Route as ApiUploadthingRouteImport } from './routes/api/uploadthing'
-import { Route as ArticleSlugRouteImport } from './routes/article/$slug'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardAlbumsRouteRouteImport } from './routes/dashboard/albums/route'
 import { Route as DashboardImagesRouteRouteImport } from './routes/dashboard/images/route'
@@ -26,7 +26,7 @@ import { Route as AuthLoginIndexRouteImport } from './routes/_auth/login/index'
 import { Route as ChatChatIndexRouteImport } from './routes/_chat/chat/index'
 import { Route as ChatChatChatboxRouteRouteImport } from './routes/_chat/chat/_chatbox/route'
 import { Route as GeneralAboutIndexRouteImport } from './routes/_general/about/index'
-import { Route as GeneralArticleIndexRouteImport } from './routes/_general/article.index'
+import { Route as GeneralArticlesIndexRouteImport } from './routes/_general/articles.index'
 import { Route as GeneralBlogIndexRouteImport } from './routes/_general/blog.index'
 import { Route as GeneralBlogpostsIndexRouteImport } from './routes/_general/blogposts.index'
 import { Route as GeneralEnvologsIndexRouteImport } from './routes/_general/envologs.index'
@@ -48,6 +48,7 @@ import { Route as DashboardTaskTrackerIndexRouteImport } from './routes/dashboar
 import { Route as DashboardTaskTrackerTaskListIdRouteImport } from './routes/dashboard/task-tracker/$taskListId'
 import { Route as EnvologsSlugIndexRouteImport } from './routes/envologs/$slug.index'
 import { Route as PostPostIdIndexRouteImport } from './routes/post/$postId.index'
+import { Route as GeneralArticlesSlugIndexRouteImport } from './routes/_general/articles.$slug.index'
 import { Route as DashboardAlbumsAlbumIdIndexRouteImport } from './routes/dashboard/albums/$albumId.index'
 import { Route as DashboardBlogSlugIndexRouteImport } from './routes/dashboard/blog/$slug.index'
 import { Route as DashboardBlogCreateBlogIndexRouteImport } from './routes/dashboard/blog/create-blog/index'
@@ -60,6 +61,11 @@ import { Route as ChatChatChatboxAdapterChatIdIndexRouteImport } from './routes/
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
@@ -93,11 +99,6 @@ const ApiProxyImageRoute = ApiProxyImageRouteImport.update({
 const ApiUploadthingRoute = ApiUploadthingRouteImport.update({
   id: '/api/uploadthing',
   path: '/api/uploadthing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArticleSlugRoute = ArticleSlugRouteImport.update({
-  id: '/article/$slug',
-  path: '/article/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -140,9 +141,9 @@ const GeneralAboutIndexRoute = GeneralAboutIndexRouteImport.update({
   path: '/about/',
   getParentRoute: () => GeneralRouteRoute,
 } as any)
-const GeneralArticleIndexRoute = GeneralArticleIndexRouteImport.update({
-  id: '/article/',
-  path: '/article/',
+const GeneralArticlesIndexRoute = GeneralArticlesIndexRouteImport.update({
+  id: '/articles/',
+  path: '/articles/',
   getParentRoute: () => GeneralRouteRoute,
 } as any)
 const GeneralBlogIndexRoute = GeneralBlogIndexRouteImport.update({
@@ -254,6 +255,12 @@ const PostPostIdIndexRoute = PostPostIdIndexRouteImport.update({
   path: '/post/$postId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GeneralArticlesSlugIndexRoute =
+  GeneralArticlesSlugIndexRouteImport.update({
+    id: '/articles/$slug/',
+    path: '/articles/$slug/',
+    getParentRoute: () => GeneralRouteRoute,
+  } as any)
 const DashboardAlbumsAlbumIdIndexRoute =
   DashboardAlbumsAlbumIdIndexRouteImport.update({
     id: '/$albumId/',
@@ -305,13 +312,13 @@ const ChatChatChatboxAdapterChatIdIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/$': typeof SplatRoute
   '/api/chat': typeof ApiChatRouteRoute
   '/dashboard/albums': typeof DashboardAlbumsRouteRouteWithChildren
   '/dashboard/images': typeof DashboardImagesRouteRouteWithChildren
   '/api/$': typeof ApiSplatRoute
   '/api/proxy-image': typeof ApiProxyImageRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
-  '/article/$slug': typeof ArticleSlugRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/chat': typeof ChatChatChatboxRouteRouteWithChildren
@@ -321,7 +328,7 @@ export interface FileRoutesByFullPath {
   '/login/': typeof AuthLoginIndexRoute
   '/chat/': typeof ChatChatIndexRoute
   '/about/': typeof GeneralAboutIndexRoute
-  '/article/': typeof GeneralArticleIndexRoute
+  '/articles/': typeof GeneralArticlesIndexRoute
   '/blog/': typeof GeneralBlogIndexRoute
   '/blogposts/': typeof GeneralBlogpostsIndexRoute
   '/envologs/': typeof GeneralEnvologsIndexRoute
@@ -340,6 +347,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/task-tracker/': typeof DashboardTaskTrackerIndexRoute
   '/envologs/$slug/': typeof EnvologsSlugIndexRoute
   '/post/$postId/': typeof PostPostIdIndexRoute
+  '/articles/$slug/': typeof GeneralArticlesSlugIndexRoute
   '/dashboard/albums/$albumId/': typeof DashboardAlbumsAlbumIdIndexRoute
   '/dashboard/blog/$slug/': typeof DashboardBlogSlugIndexRoute
   '/dashboard/blog/create-blog/': typeof DashboardBlogCreateBlogIndexRoute
@@ -351,11 +359,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/api/chat': typeof ApiChatRouteRoute
   '/api/$': typeof ApiSplatRoute
   '/api/proxy-image': typeof ApiProxyImageRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
-  '/article/$slug': typeof ArticleSlugRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard': typeof DashboardIndexRoute
   '/chat': typeof ChatChatIndexRoute
@@ -364,7 +372,7 @@ export interface FileRoutesByTo {
   '/dashboard/task-tracker/$taskListId': typeof DashboardTaskTrackerTaskListIdRoute
   '/login': typeof AuthLoginIndexRoute
   '/about': typeof GeneralAboutIndexRoute
-  '/article': typeof GeneralArticleIndexRoute
+  '/articles': typeof GeneralArticlesIndexRoute
   '/blog': typeof GeneralBlogIndexRoute
   '/blogposts': typeof GeneralBlogpostsIndexRoute
   '/envologs': typeof GeneralEnvologsIndexRoute
@@ -383,6 +391,7 @@ export interface FileRoutesByTo {
   '/dashboard/task-tracker': typeof DashboardTaskTrackerIndexRoute
   '/envologs/$slug': typeof EnvologsSlugIndexRoute
   '/post/$postId': typeof PostPostIdIndexRoute
+  '/articles/$slug': typeof GeneralArticlesSlugIndexRoute
   '/dashboard/albums/$albumId': typeof DashboardAlbumsAlbumIdIndexRoute
   '/dashboard/blog/$slug': typeof DashboardBlogSlugIndexRoute
   '/dashboard/blog/create-blog': typeof DashboardBlogCreateBlogIndexRoute
@@ -398,13 +407,13 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_general': typeof GeneralRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/$': typeof SplatRoute
   '/api/chat': typeof ApiChatRouteRoute
   '/dashboard/albums': typeof DashboardAlbumsRouteRouteWithChildren
   '/dashboard/images': typeof DashboardImagesRouteRouteWithChildren
   '/api/$': typeof ApiSplatRoute
   '/api/proxy-image': typeof ApiProxyImageRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
-  '/article/$slug': typeof ArticleSlugRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/_chat/chat/_chatbox': typeof ChatChatChatboxRouteRouteWithChildren
@@ -414,7 +423,7 @@ export interface FileRoutesById {
   '/_auth/login/': typeof AuthLoginIndexRoute
   '/_chat/chat/': typeof ChatChatIndexRoute
   '/_general/about/': typeof GeneralAboutIndexRoute
-  '/_general/article/': typeof GeneralArticleIndexRoute
+  '/_general/articles/': typeof GeneralArticlesIndexRoute
   '/_general/blog/': typeof GeneralBlogIndexRoute
   '/_general/blogposts/': typeof GeneralBlogpostsIndexRoute
   '/_general/envologs/': typeof GeneralEnvologsIndexRoute
@@ -433,6 +442,7 @@ export interface FileRoutesById {
   '/dashboard/task-tracker/': typeof DashboardTaskTrackerIndexRoute
   '/envologs/$slug/': typeof EnvologsSlugIndexRoute
   '/post/$postId/': typeof PostPostIdIndexRoute
+  '/_general/articles/$slug/': typeof GeneralArticlesSlugIndexRoute
   '/dashboard/albums/$albumId/': typeof DashboardAlbumsAlbumIdIndexRoute
   '/dashboard/blog/$slug/': typeof DashboardBlogSlugIndexRoute
   '/dashboard/blog/create-blog/': typeof DashboardBlogCreateBlogIndexRoute
@@ -447,13 +457,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/$'
     | '/api/chat'
     | '/dashboard/albums'
     | '/dashboard/images'
     | '/api/$'
     | '/api/proxy-image'
     | '/api/uploadthing'
-    | '/article/$slug'
     | '/dashboard/profile'
     | '/dashboard/'
     | '/chat'
@@ -463,7 +473,7 @@ export interface FileRouteTypes {
     | '/login/'
     | '/chat/'
     | '/about/'
-    | '/article/'
+    | '/articles/'
     | '/blog/'
     | '/blogposts/'
     | '/envologs/'
@@ -482,6 +492,7 @@ export interface FileRouteTypes {
     | '/dashboard/task-tracker/'
     | '/envologs/$slug/'
     | '/post/$postId/'
+    | '/articles/$slug/'
     | '/dashboard/albums/$albumId/'
     | '/dashboard/blog/$slug/'
     | '/dashboard/blog/create-blog/'
@@ -493,11 +504,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$'
     | '/api/chat'
     | '/api/$'
     | '/api/proxy-image'
     | '/api/uploadthing'
-    | '/article/$slug'
     | '/dashboard/profile'
     | '/dashboard'
     | '/chat'
@@ -506,7 +517,7 @@ export interface FileRouteTypes {
     | '/dashboard/task-tracker/$taskListId'
     | '/login'
     | '/about'
-    | '/article'
+    | '/articles'
     | '/blog'
     | '/blogposts'
     | '/envologs'
@@ -525,6 +536,7 @@ export interface FileRouteTypes {
     | '/dashboard/task-tracker'
     | '/envologs/$slug'
     | '/post/$postId'
+    | '/articles/$slug'
     | '/dashboard/albums/$albumId'
     | '/dashboard/blog/$slug'
     | '/dashboard/blog/create-blog'
@@ -539,13 +551,13 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_general'
     | '/dashboard'
+    | '/$'
     | '/api/chat'
     | '/dashboard/albums'
     | '/dashboard/images'
     | '/api/$'
     | '/api/proxy-image'
     | '/api/uploadthing'
-    | '/article/$slug'
     | '/dashboard/profile'
     | '/dashboard/'
     | '/_chat/chat/_chatbox'
@@ -555,7 +567,7 @@ export interface FileRouteTypes {
     | '/_auth/login/'
     | '/_chat/chat/'
     | '/_general/about/'
-    | '/_general/article/'
+    | '/_general/articles/'
     | '/_general/blog/'
     | '/_general/blogposts/'
     | '/_general/envologs/'
@@ -574,6 +586,7 @@ export interface FileRouteTypes {
     | '/dashboard/task-tracker/'
     | '/envologs/$slug/'
     | '/post/$postId/'
+    | '/_general/articles/$slug/'
     | '/dashboard/albums/$albumId/'
     | '/dashboard/blog/$slug/'
     | '/dashboard/blog/create-blog/'
@@ -589,11 +602,11 @@ export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   GeneralRouteRoute: typeof GeneralRouteRouteWithChildren
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  SplatRoute: typeof SplatRoute
   ApiChatRouteRoute: typeof ApiChatRouteRoute
   ApiSplatRoute: typeof ApiSplatRoute
   ApiProxyImageRoute: typeof ApiProxyImageRoute
   ApiUploadthingRoute: typeof ApiUploadthingRoute
-  ArticleSlugRoute: typeof ArticleSlugRoute
   ChatChatChatboxRouteRoute: typeof ChatChatChatboxRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ChatChatIndexRoute: typeof ChatChatIndexRoute
@@ -611,6 +624,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth': {
@@ -660,13 +680,6 @@ declare module '@tanstack/react-router' {
       path: '/api/uploadthing'
       fullPath: '/api/uploadthing'
       preLoaderRoute: typeof ApiUploadthingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/article/$slug': {
-      id: '/article/$slug'
-      path: '/article/$slug'
-      fullPath: '/article/$slug'
-      preLoaderRoute: typeof ArticleSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -725,11 +738,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GeneralAboutIndexRouteImport
       parentRoute: typeof GeneralRouteRoute
     }
-    '/_general/article/': {
-      id: '/_general/article/'
-      path: '/article'
-      fullPath: '/article/'
-      preLoaderRoute: typeof GeneralArticleIndexRouteImport
+    '/_general/articles/': {
+      id: '/_general/articles/'
+      path: '/articles'
+      fullPath: '/articles/'
+      preLoaderRoute: typeof GeneralArticlesIndexRouteImport
       parentRoute: typeof GeneralRouteRoute
     }
     '/_general/blog/': {
@@ -879,6 +892,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostPostIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_general/articles/$slug/': {
+      id: '/_general/articles/$slug/'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug/'
+      preLoaderRoute: typeof GeneralArticlesSlugIndexRouteImport
+      parentRoute: typeof GeneralRouteRoute
+    }
     '/dashboard/albums/$albumId/': {
       id: '/dashboard/albums/$albumId/'
       path: '/$albumId'
@@ -953,21 +973,23 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 interface GeneralRouteRouteChildren {
   GeneralUserUserIdRoute: typeof GeneralUserUserIdRoute
   GeneralAboutIndexRoute: typeof GeneralAboutIndexRoute
-  GeneralArticleIndexRoute: typeof GeneralArticleIndexRoute
+  GeneralArticlesIndexRoute: typeof GeneralArticlesIndexRoute
   GeneralBlogIndexRoute: typeof GeneralBlogIndexRoute
   GeneralBlogpostsIndexRoute: typeof GeneralBlogpostsIndexRoute
   GeneralEnvologsIndexRoute: typeof GeneralEnvologsIndexRoute
   GeneralPostIndexRoute: typeof GeneralPostIndexRoute
+  GeneralArticlesSlugIndexRoute: typeof GeneralArticlesSlugIndexRoute
 }
 
 const GeneralRouteRouteChildren: GeneralRouteRouteChildren = {
   GeneralUserUserIdRoute: GeneralUserUserIdRoute,
   GeneralAboutIndexRoute: GeneralAboutIndexRoute,
-  GeneralArticleIndexRoute: GeneralArticleIndexRoute,
+  GeneralArticlesIndexRoute: GeneralArticlesIndexRoute,
   GeneralBlogIndexRoute: GeneralBlogIndexRoute,
   GeneralBlogpostsIndexRoute: GeneralBlogpostsIndexRoute,
   GeneralEnvologsIndexRoute: GeneralEnvologsIndexRoute,
   GeneralPostIndexRoute: GeneralPostIndexRoute,
+  GeneralArticlesSlugIndexRoute: GeneralArticlesSlugIndexRoute,
 }
 
 const GeneralRouteRouteWithChildren = GeneralRouteRoute._addFileChildren(
@@ -1061,11 +1083,11 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   GeneralRouteRoute: GeneralRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  SplatRoute: SplatRoute,
   ApiChatRouteRoute: ApiChatRouteRoute,
   ApiSplatRoute: ApiSplatRoute,
   ApiProxyImageRoute: ApiProxyImageRoute,
   ApiUploadthingRoute: ApiUploadthingRoute,
-  ArticleSlugRoute: ArticleSlugRoute,
   ChatChatChatboxRouteRoute: ChatChatChatboxRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ChatChatIndexRoute: ChatChatIndexRoute,

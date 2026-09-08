@@ -1,12 +1,17 @@
+import BlogPost from "@/components/storyblok/BlogPost";
+import Author from "@/components/storyblok/Author";
 import { storyblokInit, apiPlugin } from "@storyblok/react";
 
 export function initStoryblok() {
-  console.log(process.env.STORYBLOK_TOKEN);
   storyblokInit({
-    accessToken: process.env.STORYBLOK_TOKEN,
+    accessToken: import.meta.env.VITE_STORYBLOK_DELIVERY_API_TOKEN,
     use: [apiPlugin],
     apiOptions: {
       region: "eu",
+    },
+    components: {
+      blogPost: BlogPost,
+      author: Author,
     },
   });
 }
