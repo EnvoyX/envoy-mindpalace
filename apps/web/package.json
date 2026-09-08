@@ -38,6 +38,7 @@
     "@repo/sanity-config": "workspace:*",
     "@shikijs/rehype": "^4.0.2",
     "@sinclair/typebox": "^0.34.49",
+    "@storyblok/react": "^7.3.1",
     "@streamdown/cjk": "^1.0.3",
     "@streamdown/code": "^1.1.1",
     "@streamdown/math": "^1.0.2",
@@ -170,6 +171,7 @@
     "turbo": "^2.10.11",
     "typescript": "^7.0.2",
     "vite": "^8.2.2",
+    "vite-plugin-mkcert": "^2.1.0",
     "vitest": "^4.1.10",
     "web-vitals": "^5.2.0"
   },
