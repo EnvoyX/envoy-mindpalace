@@ -35,7 +35,7 @@
         "UPLOADTHING_APP_ID",
         "DISCORD_CLIENT_ID",
         "DISCORD_CLIENT_SECRET",
-        "STORYBLOK_TOKEN"
+        "VITE_STORYBLOK_DELIVERY_API_TOKEN"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"]
     },
