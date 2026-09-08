@@ -1,11 +1,12 @@
-import { sanityClient, urlFor } from '@repo/sanity-config/client';
-import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/react-start';
-import groq from 'groq';
+import { sanityClient, urlFor } from "@repo/sanity-config/client";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import groq from "groq";
 
-import { SanityPortableText } from '@/components/web/SanityPortableText';
+import { SanityPortableText } from "@/components/web/SanityPortableText";
+import { ArrowLeft } from "lucide-react";
 
-const fetchPostBySlug = createServerFn({ method: 'GET' })
+const fetchPostBySlug = createServerFn({ method: "GET" })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
     const query = groq`*[_type == "post" && slug.current == $slug][0]{
@@ -31,10 +32,10 @@ const fetchPostBySlug = createServerFn({ method: 'GET' })
     return post;
   });
 
-export const Route = createFileRoute('/blogposts/$slug/')({
+export const Route = createFileRoute("/blogposts/$slug/")({
   beforeLoad: async ({ context }) => {
-    if (!context.session) throw redirect({ to: '/login' });
-    else if (context.user.role === 'USER') throw redirect({ to: '/envologs' });
+    if (!context.session) throw redirect({ to: "/login" });
+    else if (context.user.role === "USER") throw redirect({ to: "/envologs" });
   },
   loader: async ({ params }) => {
     const post = await fetchPostBySlug({ data: params.slug });
@@ -52,7 +53,7 @@ export const Route = createFileRoute('/blogposts/$slug/')({
     return {
       meta: [
         { title: `${post.title} | Blogposts` },
-        { name: 'description', content: post.excerpt || post.title },
+        { name: "description", content: post.excerpt || post.title },
       ],
     };
   },
@@ -66,6 +67,12 @@ function PostDetailPage() {
     <article className="max-w-3xl mx-auto px-4 py-12">
       {post.categories?.length > 0 && (
         <div className="flex gap-2 mb-3">
+          <Link to="/blogposts">
+            <p className="text-xs font-medium px-2.5 py-1 bg-neutral-400 text-white dark:bg-white dark:text-black rounded-full hover:bg-neutral-500 dark:hover:bg-neutral-200 flex items-center">
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              <span>Blogposts</span>
+            </p>
+          </Link>
           {post.categories.map((cat: { title: string }) => (
             <span
               key={cat.title}
@@ -94,10 +101,10 @@ function PostDetailPage() {
             <p className="font-medium text-neutral-900 dark:text-neutral-200">{post.author.name}</p>
           )}
           <time dateTime={post.publishedAt}>
-            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
+            {new Date(post.publishedAt).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
             })}
           </time>
         </div>
@@ -106,7 +113,7 @@ function PostDetailPage() {
       {post.mainImage && (
         <div className="mb-10 overflow-hidden rounded-xl">
           <img
-            src={urlFor(post.mainImage).width(1200).height(675).fit('crop').url()}
+            src={urlFor(post.mainImage).width(1200).height(675).fit("crop").url()}
             alt={post.mainImage.alt || post.title}
             className="w-full h-auto aspect-video object-cover"
           />

@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link } from "@tanstack/react-router";
 
 import {
   Sidebar,
@@ -8,13 +8,13 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarRail,
-} from '@/components/ui/sidebar';
-import { UserSession } from '@/data/session';
+} from "@/components/ui/sidebar";
+import { UserSession } from "@/data/session";
 
-import { navItemsDashboard, navSecondayItems } from '../NavItems';
-import { NavPrimary } from './nav-primary';
-import { NavSecondary } from './nav-secondary';
-import { NavUser } from './nav-user';
+import { navItemsDashboard, navSecondayItems } from "../NavItems";
+import { NavPrimary } from "./nav-primary";
+import { NavSecondary } from "./nav-secondary";
+import { NavUser } from "./nav-user";
 
 export function AppSidebar({ user }: UserSession) {
   return (
