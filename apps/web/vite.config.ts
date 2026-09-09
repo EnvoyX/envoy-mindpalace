@@ -1,19 +1,19 @@
-import { fileURLToPath, URL } from "url";
+import { fileURLToPath, URL } from 'url';
 
 // import contentCollections from "@content-collections/vite";
-import tailwindcss from "@tailwindcss/vite";
-import { devtools } from "@tanstack/devtools-vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
-import mkcert from "vite-plugin-mkcert";
+import tailwindcss from '@tailwindcss/vite';
+import { devtools } from '@tanstack/devtools-vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import viteReact from '@vitejs/plugin-react';
+import { nitro } from 'nitro/vite';
+import { defineConfig } from 'vite';
+// import mkcert from "vite-plugin-mkcert";
 // import netlify from '@netlify/vite-plugin-tanstack-start'
 
 const config = defineConfig({
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
     tsconfigPaths: true,
   },
@@ -36,7 +36,7 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart(),
     viteReact(),
-    mkcert(),
+    // mkcert(),
   ],
 });
 

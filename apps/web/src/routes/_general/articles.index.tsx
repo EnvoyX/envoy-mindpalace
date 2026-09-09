@@ -72,6 +72,19 @@ function ArticleIndex() {
                   </span>
                 </div>
               )}
+              {post.tag_list && post.tag_list.length > 0 && (
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {post.tag_list.map((tag: string) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-2.5 py-1 bg-zinc-800
+                      text-secondary-foreground rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
               <span className="text-sm text-primary">Read more →</span>
             </Link>
           ))}

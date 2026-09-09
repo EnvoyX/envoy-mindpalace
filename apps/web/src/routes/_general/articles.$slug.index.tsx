@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { renderRichText } from "@storyblok/react";
 import { fetchStory } from "@/server/storyblok";
+import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/_general/articles/$slug/")({
   component: BlogPost,
@@ -47,6 +48,13 @@ function BlogPost() {
 
   return (
     <article className="container min-h-screen max-w-5xl mx-auto px-4 py-8">
+      <Link
+        to="/articles"
+        className="inline-flex items-center gap-2 mb-6 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <ArrowLeft className="size-4" />
+        <span>Back to Articles</span>
+      </Link>
       {story.content?.image?.filename && (
         <div className="mb-10 overflow-hidden rounded-xl">
           <img
@@ -60,7 +68,7 @@ function BlogPost() {
       {story.content?.description && (
         <p className="mb-6 text-xl text-muted-foreground">{story.content.description}</p>
       )}
-      <div className="mb-8 flex items-center gap-4 border-b pb-8">
+      <div className="mb-4 flex items-center gap-4">
         {story.content?.published_at && (
           <p className="text-sm text-muted-foreground">
             Published: {new Date(story.content.published_at).toLocaleDateString()}
@@ -85,7 +93,18 @@ function BlogPost() {
           </div>
         )}
       </div>
-
+      {story.tag_list && story.tag_list.length > 0 && (
+        <div className="mb-8 flex flex-wrap gap-2 border-b pb-8">
+          {story.tag_list.map((tag: string) => (
+            <span
+              key={tag}
+              className="text-xs px-2.5 py-1 bg-zinc-800 text-secondary-foreground rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <div
         className="prose dark:prose-invert max-w-none"
         dangerouslySetInnerHTML={{ __html: renderedContent }}
